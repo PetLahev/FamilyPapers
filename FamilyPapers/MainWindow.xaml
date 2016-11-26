@@ -4,9 +4,102 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FamilyPapers"
+        xmlns:p="clr-namespace:FamilyPapers.Properties"        
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="Family Papers" Height="500" Width="1025">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <BitmapImage x:Key="tick" UriSource="Resources/package_installed_updated.png" />
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid Name="mainGrid" Background="AliceBlue">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Name="notification" Height="40"></RowDefinition>
+            <RowDefinition Name="content" Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <TextBox Grid.Row="0" Grid.ColumnSpan="3"></TextBox>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TreeView HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TreeViewItem>Jedna</TreeViewItem>
+                <TreeViewItem>Jedna</TreeViewItem>
+                <TreeViewItem>Jedna</TreeViewItem>
+                <TreeViewItem>Jedna</TreeViewItem>
+            </TreeView>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Background="Beige">
+            <Grid Name="gridFolder">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Name="watchPath" Width="200" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="Azure"
+                           Text="{Binding Source={x:Static p:Settings.Default}, Path=WatchFolder, Mode=TwoWay}" Height="16"></TextBlock>
+
+                <WrapPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="24" Width="166">
+                    <TextBlock  Text="Subfolder level:" Margin="0,0,5,2" VerticalAlignment="Bottom"></TextBlock>
+                    <ComboBox Name="folderLevel" Width="80" Height="22" Margin="0,0,0,2">
+                        <TextBlock Text="0"/>
+                        <TextBlock Text="1"/>
+                        <TextBlock Text="2"/>
+                    </ComboBox>
+                </WrapPanel>
+                <Button Grid.Column="2" Name="btnChoosePath" Click="btnChoosePath_Click" Margin="14,0,14,3">
+                    <StackPanel>
+                        <Image Source="Resources/folder.png" Stretch="None" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <ListBox Name="lbAssets" VerticalAlignment="Stretch" BorderBrush="Black" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="1" BorderBrush="Navy" CornerRadius="10">
+                            <Grid Margin="0,5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="17" />
+                                    <RowDefinition Height="17"/>
+                                    <RowDefinition Height="8"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="10" />
+                                </Grid.ColumnDefinitions>
+
+                                <Canvas Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                                    <Image Margin="5,0" Source="{Binding Path=Thumbnail}"></Image>
+                                    <Image Height="12" Width="12" Margin="5,0"
+                                           Canvas.Top="20" Canvas.Left="20" 
+                                        Source="{StaticResource ResourceKey=tick}"></Image>
+                                </Canvas>
+
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Name}"></TextBlock>
+                                <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Id}"></TextBlock>
+                                <!--<ProgressBar Margin="10,0" Visibility="{Binding Path=Tracked  }" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="6"></ProgressBar>-->
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
     </Grid>
+
 </Window>

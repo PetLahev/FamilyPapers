@@ -4,6 +4,35 @@
              xmlns:local="clr-namespace:FamilyPapers"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <ControlTemplate x:Key="cosik" TargetType="ListBoxItem">
+            <Border BorderThickness="1" BorderBrush="Navy" CornerRadius="10">
+                <Grid Margin="0,5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="17" />
+                        <RowDefinition Height="17"/>
+                        <RowDefinition Height="8"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+
+                    <Canvas Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+                        <Image Margin="5,0" Source="{Binding Path=Thumbnail}"></Image>
+                        <Image Height="12" Width="12" Margin="5,0"
+                                           Canvas.Top="20" Canvas.Left="20" 
+                                        Source="{StaticResource ResourceKey=tick}"></Image>
+                    </Canvas>
+
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Name}"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Id}"></TextBlock>
+                    <ProgressBar Margin="10,0" Visibility="{Binding Path=Tracked  }" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Height="6"></ProgressBar>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+
     </Application.Resources>
 </Application>
